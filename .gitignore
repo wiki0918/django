@@ -1,0 +1,4 @@
+__pycache__/
+pyvenv35/
+db.sqlite3
+config.py
