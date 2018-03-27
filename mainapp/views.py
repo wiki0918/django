@@ -1,20 +1,55 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from mainapp.models import User
 from recipe.models import Recipe
+
+import time
+now = time.strftime("%Y-%m-%d", time.localtime())
+
 # Create your views here.
 def get_index(request):
     title = '2018 Best Car'
-    recipes = Recipe.objects.all()
+    email = request.session.get('email','')
+    
+#    recipes = Recipe.objects.all()
+
     return render(request,'index.html',locals())
+
+def post_login(request):
+    email = request.POST['email'] 
+    password = request.POST['password']
+    
+    user = User.objects.filter(email=email,password=password)
+    print(user)
+    if user :
+        request.session['email'] = email
+        return redirect('/')
+    else:
+        return redirect('/')
+
+def post_logout(request):
+
+    del request.session['email']
+    return redirect('/')
+
+def post_signup(request):
+    email = request.POST['email'] 
+    password = request.POST['password']
+    
+    user = User.objects.filter(email=email)
+    
+    if user :
+        return redirect('/signup')
+    else:
+        User.objects.create(email=email,password=password,create_time=now)
+        return redirect('/')
 
 def get_signup(request):
     return render(request,'signup.html')
 
-def post_signup(request):
-    email = request.POST['email'] 
-    password = request.POST['password'] 
+    
 #    return render(request,'signup.html')
-    return HttpResponse(email,password) 
+    return HttpResponse(email,user[0]) 
 
 def set_cookie(request):
     response = HttpResponse('set_cookie')
@@ -32,5 +67,5 @@ def set_session(request):
     return HttpResponse('set_session')  
 
 def get_session(request):
-    response = request.session['age']
+    response = request.session.get('email','')
     return HttpResponse(response) 

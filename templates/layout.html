@@ -29,12 +29,21 @@ and open the template in the editor.
 
 
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Account" aria-label="Search">
-          <input class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Search">
+         
+        {% if email == '' %}        
+        <form class="form-inline my-2 my-lg-0" method="post" action="/login/post">
+          <input class="form-control mr-sm-2" type="text" placeholder="Email" name='email' aria-label="Search">
+          <input class="form-control mr-sm-2" type="password" placeholder="Password" name='password' aria-label="Search">
           <button class="btn btn-warning my-2 my-sm-0" type="submit">登入</button>
           <a href='/signup' class="btn btn-primary my-2 my-sm-0" >註冊</a>
+          {% csrf_token %}
         </form>
+        {% else %}
+        <form class="form-inline my-2 my-lg-0">
+          HI! {{email}} 
+          <a href='/logout/post' class="btn btn-primary my-2 my-sm-0" >登出</a>
+        </form> 
+        {% endif %}
       </div>
     </nav>
 

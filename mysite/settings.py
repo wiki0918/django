@@ -80,16 +80,16 @@ DATABASE_ROUTERS = ['mysite.router.DatabaseAppsRouter']
 DATABASE_APPS_MAPPING = {'mysql': 'mysql_db'}
 
 DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    },
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-    'mysql_db': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': config.mysql_name,
         'USER': config.mysql_user,
         'PASSWORD': config.mysql_password,
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'HOST': config.mysql_host,   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
