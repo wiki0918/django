@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+    <main role="main">
+
+
+      <div class="container">
+          <br>
+          <br>
+            <form class="" action="/user/update" method="post">
+
+            <div class="form-group">
+              <label>User name</label>
+              <input type="text" class="form-control" id="user" name="username" placeholder="">
+              <label>User ID</label>
+              <input type="text" class="form-control" id="user" name="uid" placeholder="">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+              {% csrf_token %}
+            </form>
+   
+        <hr>
+
+      </div> <!-- /container -->
+
+    </main>
+{% endblock %}

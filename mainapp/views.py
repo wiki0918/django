@@ -9,18 +9,29 @@ now = time.strftime("%Y-%m-%d", time.localtime())
 # Create your views here.
 def get_index(request):
     title = '2018 Best Car'
-    email = request.session.get('email','')
-    
-#    recipes = Recipe.objects.all()
+    email = request.session.get('email','')    
+    recipes = Recipe.objects.all()
 
     return render(request,'index.html',locals())
+
+def get_user(request):
+    
+    return render(request,'user.html',locals())
+
+def update_user(request):
+    username = request.POST.get('username','')
+    uid = request.POST.get('uid','')
+    if uid :
+        user = User.objects.filter(uid=uid)
+        user.update(username=username)
+    return redirect('/')
 
 def post_login(request):
     email = request.POST['email'] 
     password = request.POST['password']
     
     user = User.objects.filter(email=email,password=password)
-    print(user)
+
     if user :
         request.session['email'] = email
         return redirect('/')
@@ -46,10 +57,6 @@ def post_signup(request):
 
 def get_signup(request):
     return render(request,'signup.html')
-
-    
-#    return render(request,'signup.html')
-    return HttpResponse(email,user[0]) 
 
 def set_cookie(request):
     response = HttpResponse('set_cookie')

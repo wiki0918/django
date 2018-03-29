@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from mainapp.views import get_index,get_signup,post_signup,post_login,post_logout,set_cookie,get_cookie,set_session,get_session
+from mainapp.views import get_index,get_user,update_user,get_signup,post_signup,post_login,post_logout,set_cookie,get_cookie,set_session,get_session
+
 
 urlpatterns = [
     url(r'^set_cookie', set_cookie),
@@ -27,5 +28,7 @@ urlpatterns = [
     url(r'^login/post', post_login),
     url(r'^logout/post', post_logout),
     url(r'^admin/', admin.site.urls) ,
+    url(r'^user$', get_user),
+    url(r'^user/update', update_user),
     url(r'^', get_index),
 ]
